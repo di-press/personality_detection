@@ -1,12 +1,14 @@
 import re
 import time
-import svm
+#import svm
+import pandas as pd
+from pathlib import Path
 
 import numpy as np
-import joblib
-from bert_serving.client import BertClient
+#import joblib
+#from bert_serving.client import BertClient
 import os.path
-from joblib import dump, load
+#from joblib import dump, load
 
 
 def shrink_text(text, clean_string=True):
@@ -166,7 +168,63 @@ def predict(text):
     return results
 
 
+#def plot_personality():
+
+def preprocess_id_plot_df():
+
+    dataset_csv_file = Path.cwd().joinpath('preprocessing_data.csv')
+
+    df = pd.read_csv (dataset_csv_file,
+                        sep=",", warn_bad_lines=True, 
+                        error_bad_lines=True,
+                        engine='python',
+                        header=0,
+                        usecols = ['movielensId',
+                                    'imdbId',
+                                    'movie_title',
+                                    'year',
+                                    'plot'] 
+
+                    )
+
+   
+    movielens_id_list = list(df['movielensId'])
+    movielens_plot_list = list(df['plot'])
+
+    processed_plot = []
+
+    for plot in movielens_plot_list:
+
+        plot = plot.replace('\n', "")
+        plot = plot.replace('\r', "")
+        plot = plot.replace('\r\n', "")
+        plot = plot.replace('\n\r', "")
+        #plot = plot.replace("'\'", "")
+
+        processed_plot.append(str(plot))
+
+    #print(processed_plot)
+    #print(len(processed_plot))
+
+    id_and_plot = zip(movielens_id_list, movielens_plot_list)
+    id_and_plot = list(id_and_plot)
+    
+    return id_and_plot
+
+def extract_personality(id_and_plot):
+
+    for item in id_and_plot:
+
+        print(item[0])
+        print(type(item[1]))
+
+    print(len(id_and_plot))
+
 if __name__ == "__main__":
-    x = input("Enter a new text:")
-    predictions = predict(x)
-    print("The prediction for EXT, NEU, AGR, CON, OPN : ", predictions)
+    #x = input("Enter a new text:")
+    #predictions = predict(x)
+    #print("The prediction for EXT, NEU, AGR, CON, OPN : ", predictions)
+
+    # REIMPORTAR Imports!!!
+    id_and_plot = preprocess_id_plot_df()
+    extract_personality(id_and_plot)
