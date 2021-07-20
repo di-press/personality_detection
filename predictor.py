@@ -219,8 +219,8 @@ def extract_personality(id_and_plot):
 
         print(item[0])
         #print(type(item[1]))
-        #predictions = predict(item[1])
-        predictions = item[1]
+        predictions = predict(item[1])
+        #predictions = item[1]
         print(predictions)
 
         element = (item[0], predictions)
@@ -237,7 +237,7 @@ if __name__ == "__main__":
     id_and_plot = preprocess_id_plot_df()
     id_and_personality = extract_personality(id_and_plot)
 
-    with open("test.txt", 'a+', encoding='utf-8'):
+    with open("test.txt", 'a+', encoding='utf-8') as f:
 
         for element in id_and_personality:
-            print(element[0], " ", element[1])
+            print(element[0], " ", element[1], file=f)
