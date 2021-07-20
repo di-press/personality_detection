@@ -1,14 +1,14 @@
 import re
 import time
-#import svm
+import svm
 import pandas as pd
 from pathlib import Path
 
 import numpy as np
-#import joblib
-#from bert_serving.client import BertClient
+import joblib
+from bert_serving.client import BertClient
 import os.path
-#from joblib import dump, load
+from joblib import dump, load
 
 
 def shrink_text(text, clean_string=True):
@@ -233,7 +233,7 @@ if __name__ == "__main__":
     #predictions = predict(x)
     #print("The prediction for EXT, NEU, AGR, CON, OPN : ", predictions)
 
-    # REIMPORTAR Imports!!!
+ 
     id_and_plot = preprocess_id_plot_df()
     id_and_personality = extract_personality(id_and_plot)
 
