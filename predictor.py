@@ -213,12 +213,20 @@ def preprocess_id_plot_df():
 
 def extract_personality(id_and_plot):
 
+    id_and_personality = []
+
     for item in id_and_plot:
 
         print(item[0])
-        print(type(item[1]))
+        #print(type(item[1]))
+        #predictions = predict(item[1])
+        predictions = item[1]
+        print(predictions)
 
-    print(len(id_and_plot))
+        element = (item[0], predictions)
+        id_and_personality.append(element)
+
+    return id_and_personality
 
 if __name__ == "__main__":
     #x = input("Enter a new text:")
@@ -227,4 +235,9 @@ if __name__ == "__main__":
 
     # REIMPORTAR Imports!!!
     id_and_plot = preprocess_id_plot_df()
-    extract_personality(id_and_plot)
+    id_and_personality = extract_personality(id_and_plot)
+
+    with open("test.txt", 'a+', encoding='utf-8'):
+
+        for element in id_and_personality:
+            print(element[0], " ", element[1])
