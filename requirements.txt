@@ -1,6 +1,6 @@
 numpy==1.19.2
 joblib==0.17.0
-bert-serving-server
-bert-serving-client
+#bert-serving-server
+#bert-serving-client
 pandas
 scikit-learn==0.20.0
